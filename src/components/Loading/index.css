@@ -1,0 +1,6 @@
+ion-loading.custom-loading {
+    --background: #e3edff;
+    --spinner-color: #20C67B;
+
+    color: #20C67B
+}

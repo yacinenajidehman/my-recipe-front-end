@@ -1,0 +1,33 @@
+.avatar {
+    margin: 50px auto 20px;
+    width: 150px;
+    height: 150px;
+}
+
+.error {
+    color: red;
+    margin-right: 20px;
+}
+
+.btn {
+    margin: 50px auto;
+    margin-top: 50px;
+}
+
+.router-link {
+    display: block;
+    margin-top: 25px;
+}
+
+ion-input.custom {
+    --color: #e0a233;
+    --placeholder-color: #999999;
+    --placeholder-opacity: 0.8;
+}
+
+ion-loading.custom-loading {
+    --background: #e3edff;
+    --spinner-color: #20C67B;
+
+    color: #20C67B
+}
