@@ -6,6 +6,13 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  ...(process.env.NODE_ENV === 'development'
+    ? {
+      define: {
+        global: {},
+      },
+    }
+    : {}),
   plugins: [
     react(),
     legacy()

@@ -3,7 +3,6 @@ import { personCircleOutline, clipboardOutline, logOutOutline } from "ionicons/i
 import { PROFILE_URL } from "../../config/urls"
 import avatar from "../../pages/assets/images/avatar.png"
 
-import { AuthContext } from "../../context/AuthContext"
 
 import { useState, useEffect, useContext } from "react"
 
@@ -13,16 +12,17 @@ import Loading from "../../components/Loading"
 
 import { Preferences } from '@capacitor/preferences';
 import { useHistory } from "react-router"
+import { AuthContext } from "../../context/AuthContext";
+
 
 
 const Menu = () => {
     const [userImg, setUserImg] = useState();
     const [name, setName] = useState();
-    const [showLoading, setShowLoading] = useState(false);
-    
+    const [showLoading, setShowLoading] = useState(true);
     const history = useHistory()
 
-    const { jwt, setLoggedIn } = useContext(AuthContext);
+    const { jwt, setLoggedIn, loggedIn } = useContext(AuthContext);
 
     const logOut = async () => {
         await Preferences.remove({ key: 'accessToken' });
@@ -55,6 +55,7 @@ const Menu = () => {
     }
 
     return (
+        loggedIn ? (
         <IonMenu side="end" contentId="menu">
             <Loading isOpen={showLoading} />
             <IonHeader>
@@ -92,7 +93,7 @@ const Menu = () => {
                         </IonItem>
                     </IonMenuToggle>
                     <IonMenuToggle>
-                        <IonItem routerLink="/my-recipe/all-posts">
+                        <IonItem routerLink="/my-recipe/my-posts">
                             <IonIcon icon={clipboardOutline}
                                 color="primary" />
                             <IonLabel className="ion-margin">
@@ -111,7 +112,7 @@ const Menu = () => {
                     </IonMenuToggle>
                 </IonList>
             </IonContent>
-        </IonMenu>
+        </IonMenu>) : <></>
     )
 }
 

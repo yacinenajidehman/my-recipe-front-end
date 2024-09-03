@@ -27,7 +27,7 @@ const App: React.FC = () => (
             <AppTaps />
           </Route>
           <Route exact path="/">
-            <Redirect to="/account/login" />
+            <Redirect to="/my-recipe/all-posts" />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

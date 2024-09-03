@@ -38,6 +38,7 @@
     background-color: #fff;
     margin-right: 5px;
     margin-bottom: 0;
+    padding: 10px;
     padding-right: 10px;
 }
 
@@ -82,3 +83,12 @@
     background:  var(--ion-color-primary) !important;
 }
 
+.image-holder-size{
+    width: 100%;
+    max-height: 350px;
+}
+
+.image-size{
+    width: fit-content;
+    height: fit-content;
+}

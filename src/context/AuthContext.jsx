@@ -23,24 +23,23 @@ const AuthContextProvider = (props) => {
         if (accessToken) {
             setJwt(accessToken);
             setLoggedIn(true);
-            setShowLoading(false);
         } else {
             setLoggedIn(false);
-            setShowLoading(false);
-        }
+        } 
+        setShowLoading(false);
 
     }
 
     return (
         <>
-        {showLoading 
-        ? 
-        <Loading isOpen={showLoading} /> 
-        : 
-        <AuthContext.Provider value={{loggedIn, setLoggedIn, jwt, setJwt}}>
-            {props.children}
-        </AuthContext.Provider>
-        }
+            {showLoading
+                ?
+                <Loading isOpen={showLoading} />
+                :
+                <AuthContext.Provider value={{ loggedIn, setLoggedIn, jwt, setJwt }}>
+                    {props.children}
+                </AuthContext.Provider>
+            }
         </>
     )
 }

@@ -42,6 +42,7 @@ const UserAvatar = (props) => {
     }
 
     return (
+        
         <div className="avatar-container">
             <IonAvatar className="avatar" onClick={() => takePhoto()} ref={takePhotoRef}>
                 {
@@ -54,6 +55,7 @@ const UserAvatar = (props) => {
             </IonAvatar>
             <IonIcon icon={addOutline} className="user-icon" color="light" onClick={() => {takePhotoRef.current.click()}}/>
         </div>
+
     )
 }
 

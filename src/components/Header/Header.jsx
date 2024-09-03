@@ -1,7 +1,11 @@
 import { IonHeader, IonTitle, IonToolbar, IonButtons, IonMenuButton, IonBackButton } from "@ionic/react"
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 
 export default function Header(props) {
+    const { loggedIn } = useContext(AuthContext);
+
     return (
         <IonHeader>
             <IonToolbar color='primary'>
@@ -9,10 +13,13 @@ export default function Header(props) {
                     {props.headerTitle}
                 </IonTitle>
                 <IonButtons slot="end">
-                    <IonMenuButton />
+                    {
+                        loggedIn ? <IonMenuButton /> : <></>
+                    }
+
                 </IonButtons>
                 <IonButtons slot="start">
-                    <IonBackButton defaultHref={props.defaultHref}  disabled={props.disabledBackButton}></IonBackButton>
+                    {loggedIn ? <IonBackButton defaultHref={props.defaultHref} disabled={props.disabledBackButton}></IonBackButton> : <></>}
                 </IonButtons>
             </IonToolbar>
         </IonHeader>

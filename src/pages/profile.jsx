@@ -13,7 +13,7 @@ import UserAvatar from "../components/UserProfile/UserAvatar"
 
 const Profile = () => {
 
-    const [showLoading, setShowLoading] = useState(false);
+    const [showLoading, setShowLoading] = useState(true);
     const [name, setName] = useState();
     const [password, setPassword] = useState();
     const [email, setEmail] = useState();
@@ -67,7 +67,8 @@ const Profile = () => {
         } catch (error) {
             console.log(error)
         } finally {
-            setShowLoading(false)
+            setShowLoading(false);
+            setShowAlert(false)
         }
     }
 
