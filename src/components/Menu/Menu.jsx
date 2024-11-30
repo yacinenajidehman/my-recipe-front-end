@@ -20,9 +20,26 @@ const Menu = () => {
     const [userImg, setUserImg] = useState();
     const [name, setName] = useState();
     const [showLoading, setShowLoading] = useState(true);
-    const history = useHistory()
+    const history = useHistory();
+    const [side, setSide] = useState("end");
+
 
     const { jwt, setLoggedIn, loggedIn } = useContext(AuthContext);
+
+    let x = window.matchMedia("(max-width: 992px)");
+
+    const myFunction = (x) => {
+        if(x.matches){
+            setSide("end");
+        }else{
+            setSide("start");
+        }
+    }
+
+    useEffect(()=>{
+        myFunction(x);
+        x.addListener(myFunction);
+    }, [])
 
     const logOut = async () => {
         await Preferences.remove({ key: 'accessToken' });
@@ -56,7 +73,7 @@ const Menu = () => {
 
     return (
         loggedIn ? (
-        <IonMenu side="end" contentId="menu">
+        <IonMenu side={side} contentId="menu">
             <Loading isOpen={showLoading} />
             <IonHeader>
                 <IonToolbar>
@@ -83,7 +100,7 @@ const Menu = () => {
                     </IonText>
                 </div>
                 <IonList>
-                    <IonMenuToggle>
+                    <IonMenuToggle autoHide="false">
                         <IonItem routerLink="/my-recipe/account/profile">
                             <IonIcon icon={personCircleOutline}
                                 color="primary" />
@@ -92,7 +109,7 @@ const Menu = () => {
                             </IonLabel>
                         </IonItem>
                     </IonMenuToggle>
-                    <IonMenuToggle>
+                    <IonMenuToggle autoHide="false">
                         <IonItem routerLink="/my-recipe/my-posts">
                             <IonIcon icon={clipboardOutline}
                                 color="primary" />
@@ -101,7 +118,7 @@ const Menu = () => {
                             </IonLabel>
                         </IonItem>
                     </IonMenuToggle>
-                    <IonMenuToggle>
+                    <IonMenuToggle autoHide="false">
                         <IonItem onClick={() => logOut()}>
                             <IonIcon icon={logOutOutline}
                                 color="primary" />

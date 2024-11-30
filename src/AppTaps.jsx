@@ -22,7 +22,7 @@ const AppTaps = () => {
     } else {
         return (
             <IonTabs>
-                <IonRouterOutlet id='menu'>
+                <IonRouterOutlet >
                     <Route exact path="/my-recipe/account/profile">
                         <Profile />
                     </Route>

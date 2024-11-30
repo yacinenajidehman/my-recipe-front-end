@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonAvatar, IonImg, IonItem, IonInput, IonButton, IonRouterLink, IonText } from "@ionic/react";
+import { IonContent, IonPage, IonAvatar, IonImg, IonItem, IonInput, IonButton, IonRouterLink, IonText, IonGrid, IonRow, IonCol } from "@ionic/react";
 import Header from "../components/Header/Header";
 import avatar from "./assets/images/avatar.png";
 import './styles/register.css';
@@ -90,75 +90,81 @@ const Register = () => {
             <Header headerTitle="صفحة مستخدم جديد" />
 
             <IonContent>
+                <IonGrid>
+                    <IonRow>
+                        <IonCol sizeMd="6" offsetMd="3" sizeLg="4" offsetLg="4">
+                            <IonAvatar className="avatar">
+                                <IonImg src={avatar} />
+                            </IonAvatar>
 
-                <IonAvatar className="avatar">
-                    <IonImg src={avatar} />
-                </IonAvatar>
+                            <Formik
+                                initialValues={{
+                                    name: '',
+                                    email: '',
+                                    password: ''
+                                }}
+                                validationSchema={validationSchema}
+                                onSubmit={(values, { resetForm }) => {
+                                    onSubmit(values);
+                                    resetForm();
+                                    setShowErrorAlert(false);
+                                }}
+                            >
+                                {
+                                    formikProps => (
+                                        <form onSubmit={formikProps.handleSubmit}>
+                                            <IonItem>
 
-                <Formik
-                    initialValues={{
-                        name: '',
-                        email: '',
-                        password: ''
-                    }}
-                    validationSchema={validationSchema}
-                    onSubmit={(values, { resetForm }) => {
-                        onSubmit(values);
-                        resetForm();
-                        setShowErrorAlert(false);
-                    }}
-                >
-                    {
-                        formikProps => (
-                            <form onSubmit={formikProps.handleSubmit}>
-                                <IonItem>
+                                                <IonInput
+                                                    name="name"
+                                                    value={formikProps.values.name}
+                                                    onIonChange={formikProps.handleChange}
+                                                    onIonBlur={formikProps.handleBlur}
+                                                    class='custom' label="اسم المستخدم" labelPlacement="floating" placeholder="ادخل الإسم"
+                                                />
 
-                                    <IonInput
-                                        name="name"
-                                        value={formikProps.values.name}
-                                        onIonChange={formikProps.handleChange}
-                                        onIonBlur={formikProps.handleBlur}
-                                        class='custom' label="اسم المستخدم" labelPlacement="floating" placeholder="ادخل الإسم"
-                                    />
+                                            </IonItem>
+                                            <IonText className="error">{formikProps.touched.name && formikProps.errors.name}</IonText>
+                                            <IonItem>
 
-                                </IonItem>
-                                <IonText className="error">{formikProps.touched.name && formikProps.errors.name}</IonText>
-                                <IonItem>
+                                                <IonInput
+                                                    name="email"
+                                                    value={formikProps.values.email}
+                                                    onIonChange={formikProps.handleChange}
+                                                    onIonBlur={formikProps.handleBlur}
+                                                    class='custom' label="البريد الإكتروني" labelPlacement="floating" placeholder="ادخل البريد الإلكتروني"
+                                                />
 
-                                    <IonInput
-                                        name="email"
-                                        value={formikProps.values.email}
-                                        onIonChange={formikProps.handleChange}
-                                        onIonBlur={formikProps.handleBlur}
-                                        class='custom' label="البريد الإكتروني" labelPlacement="floating" placeholder="ادخل البريد الإلكتروني"
-                                    />
-
-                                </IonItem>
-                                <IonText className="error">{formikProps.touched.email && formikProps.errors.email}</IonText>
-
-
-                                <IonItem>
-
-                                    <IonInput
-                                        name="password"
-                                        value={formikProps.values.password}
-                                        onIonChange={formikProps.handleChange}
-                                        onIonBlur={formikProps.handleBlur}
-                                        class='custom' type="password" label="كلمة المرور" labelPlacement="floating" placeholder="ادخل كلمة المرور"
-                                    />
-
-                                </IonItem>
-                                <IonText className="error">{formikProps.touched.password && formikProps.errors.password}</IonText>
-                                <div className="ion-text-center btn">
-                                    <IonButton type="submit" >إنشاء حساب</IonButton>
-                                    <IonRouterLink routerLink="/account/login" className="router-link" color='warning'>تسجيل الدخول</IonRouterLink>
-                                </div>
-                            </form>
-                        )
-                    }
+                                            </IonItem>
+                                            <IonText className="error">{formikProps.touched.email && formikProps.errors.email}</IonText>
 
 
-                </Formik>
+                                            <IonItem>
+
+                                                <IonInput
+                                                    name="password"
+                                                    value={formikProps.values.password}
+                                                    onIonChange={formikProps.handleChange}
+                                                    onIonBlur={formikProps.handleBlur}
+                                                    class='custom' type="password" label="كلمة المرور" labelPlacement="floating" placeholder="ادخل كلمة المرور"
+                                                />
+
+                                            </IonItem>
+                                            <IonText className="error">{formikProps.touched.password && formikProps.errors.password}</IonText>
+                                            <div className="ion-text-center btn">
+                                                <IonButton type="submit" >إنشاء حساب</IonButton>
+                                                <IonRouterLink routerLink="/account/login" className="router-link" color='warning'>تسجيل الدخول</IonRouterLink>
+                                            </div>
+                                        </form>
+                                    )
+                                }
+
+
+                            </Formik>
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
+
 
 
             </IonContent>

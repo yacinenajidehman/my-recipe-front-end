@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonAlert } from "@ionic/react"
+import { IonContent, IonPage, IonAlert, IonGrid, IonRow, IonCol } from "@ionic/react"
 import Header from "../components/Header/Header"
 
 import './styles/profile.css'
@@ -28,7 +28,7 @@ const Profile = () => {
         getProfile();
     }, [])
 
-    
+
 
     const getProfile = async () => {
         setShowLoading(true);
@@ -102,16 +102,24 @@ const Profile = () => {
                         <Header headerTitle="الصفحة المسخدم" />
                         <IonContent className="ion-padding">
 
-                            <UserAvatar userImg={userImg} jwt={jwt}/>
+                            <IonGrid>
+                                <IonRow>
+                                    <IonCol sizeMd="6" offsetMd="3" sizeLg="4" offsetLg="4">
+                                        <UserAvatar userImg={userImg} jwt={jwt} />
 
 
-                            <UserDetails
-                                name={name}
-                                email={email}
-                                userName={setName}
-                                password={setPassword}
-                                showAlert={setShowAlert}
-                            />
+                                        <UserDetails
+                                            name={name}
+                                            email={email}
+                                            userName={setName}
+                                            password={setPassword}
+                                            showAlert={setShowAlert}
+                                        />
+                                    </IonCol>
+                                </IonRow>
+                            </IonGrid>
+
+
 
                         </IonContent>
                     </>

@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonItem, IonInput, IonButton, IonRouterLink, IonText, IonIcon, IonList } from "@ionic/react";
+import { IonContent, IonPage, IonItem, IonInput, IonButton, IonRouterLink, IonText, IonIcon, IonList, IonGrid, IonRow, IonLoading, IonCol } from "@ionic/react";
 import Header from "../components/Header/Header";
 import { logIn } from "ionicons/icons";
 import './styles/register.css';
@@ -34,7 +34,6 @@ const Login = () => {
                 setJwt(res.data.accessToken);
                 history.push('/my-recipe/all-posts');
             });
-
         } catch (e) {
             if (e.response.status === 401) {
                 setShowErrorAlert(true)
@@ -49,13 +48,14 @@ const Login = () => {
 
     return (
         <IonPage>
-            <Loading isOpen={isLoading} />
+            {isLoading && <Loading isOpen={isLoading} />}
 
             <Alert
                 isOpen={showErrorAlert}
                 header="تنبيه!"
                 subHeader="البريد الإلكتروني او كلمة المرور خاطئة"
                 message="تحقق من صحة البريد الإلكتروني و كلمة المرور"
+                onDidDismiss={() => setShowErrorAlert(false)}
                 buttons={[
                     {
                         text: "موافق",
@@ -66,69 +66,76 @@ const Login = () => {
             <Header headerTitle="صفحة تسجيل الدخول" disabledBackButton="true" />
 
             <IonContent>
-                <Formik
-                    initialValues={{ email: '', password: '' }}
-                    validationSchema={yup.object({
-                        email: yup.string().email('البريد الإلكتروني غير صالح').required('مطلوب'),
-                        password: yup.string().required('مطلوب')
-                    })}
-                    onSubmit={(values, { resetForm }) => {
-                        onSubmit(values);
-                        resetForm();
-                        setShowErrorAlert(false)
-                    }}
-                >
-                    {({ handleChange, handleSubmit, values, errors, touched, handleBlur }) => (
-                        <form onSubmit={handleSubmit}>
-                            <IonList>
-                                <IonIcon icon={logIn} className="icon" />
-                                <div className="ion-margin-bottom">
-                                    <IonItem >
-                                        <IonInput
-                                            name="email"
-                                            value={values.email}
-                                            onIonChange={handleChange('email')}
-                                            onIonBlur={handleBlur}
-                                            class='custom'
-                                            label="البريد الإكتروني"
-                                            labelPlacement="floating"
-                                            placeholder="ادخل البريد الإلكتروني"
-                                        />
-
-                                    </IonItem>
-                                    {touched.email && errors.email && (
-                                        <IonText className="error">{errors.email}</IonText>
-                                    )}
-                                </div>
-                                <IonItem>
-                                    <IonInput
-                                        name="password"
-                                        value={values.password}
-                                        onIonChange={handleChange('password')}
-                                        class='custom'
-                                        onIonBlur={handleBlur}
-                                        type="password"
-                                        label="كلمة المرور"
-                                        labelPlacement="floating"
-                                        placeholder="ادخل كلمة المرور"
-                                    />
-
-                                </IonItem>
-                                {touched.password && errors.password && (
-                                    <IonText className="error">{errors.password}</IonText>
-                                )}
-                            </IonList>
-                            <div
-                                className="ion-text-center btn"
+                <IonGrid>
+                    <IonRow>
+                        <IonCol sizeMd="6" offsetMd="3" sizeLg="4" offsetLg="4">
+                            <Formik
+                                initialValues={{ email: '', password: '' }}
+                                validationSchema={yup.object({
+                                    email: yup.string().email('البريد الإلكتروني غير صالح').required('مطلوب'),
+                                    password: yup.string().required('مطلوب')
+                                })}
+                                onSubmit={(values, { resetForm }) => {
+                                    onSubmit(values);
+                                    resetForm();
+                                    setShowErrorAlert(false)
+                                }}
                             >
-                                <IonButton type="submit">تسجيل الدخول</IonButton>
-                                <IonRouterLink routerLink="/account/register" className="router-link" color='warning'>
-                                    إنشاء حساب
-                                </IonRouterLink>
-                            </div>
-                        </form>
-                    )}
-                </Formik>
+                                {({ handleChange, handleSubmit, values, errors, touched, handleBlur }) => (
+                                    <form onSubmit={handleSubmit}>
+                                        <IonList>
+                                            <IonIcon icon={logIn} className="icon" />
+                                            <div className="ion-margin-bottom">
+                                                <IonItem >
+                                                    <IonInput
+                                                        name="email"
+                                                        value={values.email}
+                                                        onIonChange={handleChange('email')}
+                                                        onIonBlur={handleBlur}
+                                                        class='custom'
+                                                        label="البريد الإكتروني"
+                                                        labelPlacement="floating"
+                                                        placeholder="ادخل البريد الإلكتروني"
+                                                    />
+
+                                                </IonItem>
+                                                {touched.email && errors.email && (
+                                                    <IonText className="error">{errors.email}</IonText>
+                                                )}
+                                            </div>
+                                            <IonItem>
+                                                <IonInput
+                                                    name="password"
+                                                    value={values.password}
+                                                    onIonChange={handleChange('password')}
+                                                    class='custom'
+                                                    onIonBlur={handleBlur}
+                                                    type="password"
+                                                    label="كلمة المرور"
+                                                    labelPlacement="floating"
+                                                    placeholder="ادخل كلمة المرور"
+                                                />
+
+                                            </IonItem>
+                                            {touched.password && errors.password && (
+                                                <IonText className="error">{errors.password}</IonText>
+                                            )}
+                                        </IonList>
+                                        <div
+                                            className="ion-text-center btn"
+                                        >
+                                            <IonButton type="submit">تسجيل الدخول</IonButton>
+                                            <IonRouterLink routerLink="/account/register" className="router-link" color='warning'>
+                                                إنشاء حساب
+                                            </IonRouterLink>
+                                        </div>
+                                    </form>
+                                )}
+                            </Formik> 
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
+
             </IonContent>
         </IonPage >
     );

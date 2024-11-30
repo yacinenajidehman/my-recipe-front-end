@@ -12,6 +12,8 @@ const  Alert = (props) => {
             message={props.message}
             // "هذا البريد الإلكتروني مستخدم بالفعل فهل ترغب بتسجيل الدخول؟"
             buttons={props.buttons}
+
+            onDidDismiss={props.onDidDismiss}
             // {[
             //     {
             //         text: "موافق",

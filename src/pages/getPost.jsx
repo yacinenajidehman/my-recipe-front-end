@@ -85,131 +85,139 @@ const GetPost = () => {
     }
 
 
-    showAlert = () => {
+    // showAlert = () => {
 
-    }
+    // }
 
     return (
         <IonPage>
             {loading ? <Loading isOpen={true} /> :
                 <>
-                    
+
                     <Header headerTitle={post.title} />
                     <IonContent scrollEvents={true}
                         id="content"
                     >
-                        <Swiper
-
-                            modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                            navigation
-                            pagination={{ clickable: true }}
-                            className="image-holder-size"
-                            autoplay={{
-                                delay: 3000,
-                                disableOnInteraction: false,
-                            }}
-                        >
-                            {post.Post_Images.map((img) => {
-                                return <SwiperSlide key={img.id}>
-                                    <IonImg src={img.img_uri} className="image-size" />
-                                </SwiperSlide>
-                            })}
-                        </Swiper>
                         <IonGrid>
                             <IonRow>
+                                <IonCol sizeMd="7" offsetMd="1" sizeLg="7" offsetLg="1">
+                                    <Swiper
 
-                                <Like postId={postId}
-                                    jwt={jwt}
-                                    sendToParent={setLikeCount}
-                                />
-
-                                <IonCol size="6">
-                                    <IonIcon icon={chatboxEllipsesOutline} color="primary" className="post-icon"
-                                        onClick={() => {
-                                            scrollToButtom()
+                                        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                                        navigation
+                                        pagination={{ clickable: true }}
+                                        className="image-holder-size"
+                                        autoplay={{
+                                            delay: 3000,
+                                            disableOnInteraction: false,
                                         }}
+                                    >
+                                        {post.Post_Images.map((img) => {
+                                            return <SwiperSlide key={img.id}>
+                                                <IonImg src={img.img_uri} className="image-size" />
+                                            </SwiperSlide>
+                                        })}
+                                    </Swiper>
+                                    <IonGrid>
+                                        <IonRow>
+
+                                            <Like postId={postId}
+                                                jwt={jwt}
+                                                sendToParent={setLikeCount}
+                                            />
+
+                                            <IonCol size="6">
+                                                <IonIcon icon={chatboxEllipsesOutline} color="primary" className="post-icon"
+                                                    onClick={() => {
+                                                        scrollToButtom()
+                                                    }}
+                                                />
+                                            </IonCol>
+                                        </IonRow>
+                                        <IonRow>
+                                            <IonCardSubtitle className="post-like">{likeCount} إعجاب</IonCardSubtitle>
+                                        </IonRow>
+                                    </IonGrid>
+                                    <IonCard className="ion-no-margin ion-margin-bottom">
+                                        <IonGrid>
+                                            <IonRow className="ion-margin-top">
+                                                <IonAvatar>
+                                                    {post.User.img_uri ?
+                                                        <IonImg src={post.User.img_uri} /> :
+                                                        <IonImg src={avatar} />
+                                                    }
+                                                </IonAvatar>
+                                                <IonCol>
+                                                    <IonCardSubtitle className="post-username">
+                                                        {post.User.name}
+                                                    </IonCardSubtitle>
+                                                    <IonCardSubtitle className="post-time" color="warning">
+                                                        {moment(post.createdAt).fromNow()}
+                                                    </IonCardSubtitle>
+                                                </IonCol>
+                                                <IonCol className="ion-text-center">
+                                                    <IonCardSubtitle>
+                                                        {post.country}
+                                                    </IonCardSubtitle>
+                                                    <IonCardSubtitle>
+                                                        {post.region}
+                                                    </IonCardSubtitle>
+                                                </IonCol>
+                                            </IonRow>
+                                        </IonGrid>
+                                        <IonList>
+                                            <IonListHeader>
+                                                <IonText color='primary'>
+                                                    <h3>المكونات</h3>
+                                                </IonText>
+                                            </IonListHeader>
+                                            <IonItem lines="none">
+                                                <IonText>
+                                                    <p>
+                                                        {post.contents}
+                                                    </p>
+                                                </IonText>
+                                            </IonItem>
+                                        </IonList>
+                                        <IonList>
+                                            <IonListHeader>
+                                                <IonText color='primary'>
+                                                    <h3>خطوات التجظير</h3>
+                                                </IonText>
+                                            </IonListHeader>
+                                            <IonItem lines="none">
+                                                <IonText>
+                                                    <Editor editorState={steps} readOnly={true} />
+                                                </IonText>
+                                            </IonItem>
+                                        </IonList>
+                                    </IonCard>
+                                    <IonItemDivider color="light">
+                                        <IonText color="primary">
+                                            <h3 className="ion-no-margin">
+                                                التعليقات
+                                            </h3>
+                                        </IonText>
+                                    </IonItemDivider>
+                                    <GetComment postId={postId}
+                                        newComment={newComment}
                                     />
+                                    <IonItemDivider color="light">
+                                        <IonText color="primary">
+                                            <h3>
+                                                اكتب تعليقا
+                                            </h3>
+                                        </IonText>
+                                    </IonItemDivider>
+                                    <CreateComment
+                                        postId={postId}
+                                        newComment={setNewComment}
+                                    />
+
                                 </IonCol>
                             </IonRow>
-                            <IonRow>
-                                <IonCardSubtitle className="post-like">{likeCount} إعجاب</IonCardSubtitle>
-                            </IonRow>
                         </IonGrid>
-                        <IonCard className="ion-no-margin ion-margin-bottom">
-                            <IonGrid>
-                                <IonRow className="ion-margin-top">
-                                    <IonAvatar>
-                                        {post.User.img_uri ?
-                                            <IonImg src={post.User.img_uri} /> :
-                                            <IonImg src={avatar} />
-                                        }
-                                    </IonAvatar>
-                                    <IonCol>
-                                        <IonCardSubtitle className="post-username">
-                                            {post.User.name}
-                                        </IonCardSubtitle>
-                                        <IonCardSubtitle className="post-time" color="warning">
-                                            {moment(post.createdAt).fromNow()}
-                                        </IonCardSubtitle>
-                                    </IonCol>
-                                    <IonCol className="ion-text-center">
-                                        <IonCardSubtitle>
-                                            {post.country}
-                                        </IonCardSubtitle>
-                                        <IonCardSubtitle>
-                                            {post.region}
-                                        </IonCardSubtitle>
-                                    </IonCol>
-                                </IonRow>
-                            </IonGrid>
-                            <IonList>
-                                <IonListHeader>
-                                    <IonText color='primary'>
-                                        <h3>المكونات</h3>
-                                    </IonText>
-                                </IonListHeader>
-                                <IonItem lines="none">
-                                    <IonText>
-                                        <p>
-                                            {post.contents}
-                                        </p>
-                                    </IonText>
-                                </IonItem>
-                            </IonList>
-                            <IonList>
-                                <IonListHeader>
-                                    <IonText color='primary'>
-                                        <h3>خطوات التجظير</h3>
-                                    </IonText>
-                                </IonListHeader>
-                                <IonItem lines="none">
-                                    <IonText>
-                                        <Editor editorState={steps} readOnly={true} />
-                                    </IonText>
-                                </IonItem>
-                            </IonList>
-                        </IonCard>
-                        <IonItemDivider color="light">
-                            <IonText color="primary">
-                                <h3 className="ion-no-margin">
-                                    التعليقات
-                                </h3>
-                            </IonText>
-                        </IonItemDivider>
-                        <GetComment postId={postId}
-                            newComment={newComment}
-                        />
-                        <IonItemDivider color="light">
-                            <IonText color="primary">
-                                <h3>
-                                    اكتب تعليقا
-                                </h3>
-                            </IonText>
-                        </IonItemDivider>
-                        <CreateComment
-                            postId={postId}
-                            newComment={setNewComment}
-                        />
+
                     </IonContent>
                 </>
             }
